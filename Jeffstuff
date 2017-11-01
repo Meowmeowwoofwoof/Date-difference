@@ -1,0 +1,74 @@
+DAYS IN A MONTH (month.c)
+
+#define TRUE 1 
+
+int days_in_month(int month, int year)
+{
+if(month == 2) return(leap_year(year) == TRUE ? 29 : 28);
+return (month % 2 == 1 && month < 8 || month == 8 || month == 10 || month == 12 ? 31 : 30);
+}
+
+
+
+JULIAN DAY (julian.c)
+
+int julian_date(int day, int month, int year)
+{
+int days = 0, counter = 1;
+while(counter < month)
+{
+days = days + days_in_month(counter, year);
+counter++;
+}
+days = days + day;
+return days;
+}
+
+
+
+HEADER2 (month.h)
+
+int days_in_month(int, int);
+int is_leap(int);
+
+
+
+HEADER3 (julian.h)
+
+int julian_date(int,int,int);
+int days_in_month(int,int);
+int is_leap(int);
+
+
+
+DRIVER2 (driver2.c)
+
+#include <stdio.h>
+#include "month.h"
+
+main()
+{
+int month, year, days;
+while(printf("Input month and year\n") != 0 && scanf("%d %d", &month, &year) != EOF)
+{
+days = days_in_month(month, year);
+printf("There are %d days\n", days);
+}
+}
+
+
+
+DRIVER3 (driver3.c)
+
+#include <stdio.h>
+#include "julian.h"
+
+main()
+{
+int date, day, month, year;
+while(printf("Enter day, month, year\n") != EOF && scanf("%d %d %d", &day, &month, &year) != EOF)
+{
+date = julian_date(day, month, year);
+printf("the julian date is %d\n", date);
+}
+}
